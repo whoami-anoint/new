@@ -9,14 +9,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
       - name: Merge with main
-        env:
-          GITHUB_TOKEN: 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
         run: |
-          git clone https://github.com/whoami-anoint/new.git tmp
-          cd tmp
-          git config user.name "whoami-anoint"
-          git config user.email "abhishekkfl@gmail.com"
+          git config --global user.name "whoami-anoint"
+          git config --global user.email "abhishekkfl@gmail.com"
           git pull origin main
           git checkout main
           git merge dev
