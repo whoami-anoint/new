@@ -1,9 +1,8 @@
-name: Automerge
+name: Auto Merge Dev to Main
 
-on:  
-  workflow_dispatch:
+on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/10 * * * *'  # Runs every 10 minutes
 
 jobs:
   merge:
@@ -18,8 +17,7 @@ jobs:
           cd tmp
           git config user.name "whoami-anoint"
           git config user.email "abhishekkfl@gmail.com"
+          git pull origin main
           git checkout main
-          git pull
-          git checkout dev
-          git merge origin/dev
-          git push origin dev:main
+          git merge dev
+          git push origin main
