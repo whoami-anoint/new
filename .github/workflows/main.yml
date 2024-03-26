@@ -27,6 +27,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Merge with master
-      run: | git clone ${{env.MY_REPO}} tmp cd tmp git config user.name "whoami-anoint" git config user.email "abhishekkfl@gmail.com" git checkout main git pull git branch git merge origin/feature2 git push -u origin main
-
+      - name: Merge with master
+        run: |
+          git clone ${{env.MY_REPO}} tmp
+          cd tmp
+          git config user.name "whoami-anoint"
+          git config user.email "abhishekkfl@gmail.com"
+          git checkout main
+          git pull
+          git branch
+          git merge origin/dev
+          git push -u origin main
