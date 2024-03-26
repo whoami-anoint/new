@@ -3,38 +3,23 @@ name: Automerge
 on:  
   workflow_dispatch:
   schedule:
-    # You can setup schedule here
     - cron: '*/5 * * * *'
-
-env:
-  # replace "github_username" with your GitHub username
-  # replace "github.com/username/repo.git" with your GitHub repo path
-  # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
-  ${{secrets.GITHUB_TOKEN}}: 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
-  MY_REPO: https://whoami-anoint:${{secrets.GITHUB_TOKEN}}@github.com/whoami-anoint/new.git
-
-  # replace "long-lived_branch_name" with your branch name
-  MY_BRANCH: dev
-
-  # replace it with the path to master repo
-  MASTER_REPO: https://github.com/whoami-anoint/new.git
-
-  # replace "master" with your master branch name
-  MASTER_BRANCH: main
 
 jobs:
   merge:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Merge with master
+      - name: Merge with main
+        env:
+          GITHUB_TOKEN: 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
         run: |
-          git clone ${{env.MY_REPO}} tmp
+          git clone https://github.com/whoami-anoint/new.git tmp
           cd tmp
           git config user.name "whoami-anoint"
           git config user.email "abhishekkfl@gmail.com"
           git checkout main
           git pull
-          git branch
+          git checkout dev
           git merge origin/dev
-          git push -u origin main
+          git push origin dev:main
