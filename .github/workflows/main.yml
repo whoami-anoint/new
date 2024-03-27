@@ -1,22 +1,23 @@
-name: Auto Merge Dev to Main
+name: Merge dev to main
 
 on:
-  schedule:
-    # cron: '*/10 * * * *'  # Runs every 10 minutes
+  push:
+    branches:
+      - dev
 
 jobs:
   merge:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Merge with main
+      - name: Merge dev to main
         run: |
-          git config --global user.name "whoami-anoint"
-          git config --global user.email "abhishekkfl@gmail.com"
-          git pull origin main
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
           git checkout main
-          git merge dev
+          git pull origin main
+          git merge --no-ff --no-edit dev
           git push origin main
