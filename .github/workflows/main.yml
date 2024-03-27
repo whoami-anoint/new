@@ -1,24 +1,20 @@
-name: Merge dev to main
+echo 'name: Auto Merge
 
 on:
-  push:
-    branches:
-      - dev
+  schedule:
+    - cron:  '*/2 * * * *'
 
 jobs:
   merge:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - name: Merge dev to main
+      - name: Merge dev into main
         run: |
-          git reset
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
           git checkout main
-          git pull origin main
-          git merge --no-ff --no-edit dev
+          git merge --no-ff dev
           git push origin main
